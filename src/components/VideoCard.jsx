@@ -1,16 +1,17 @@
 import React from 'react'
 
 const VideoCard = ({info}) => {
+  if(!info) return null;
     console.log(info);
     const {snippet,statistics}=info;
     const{channelTitle,title,thumbnails}=snippet;
   return (
-    <div className='p-2 m-2 w-72'>
+    <div className='p-2 m-2 w-64 shadow'>
       <img className="rounded-lg" src={thumbnails.medium.url} alt="thumbnail" />
       <ul>
-        <li>{channelTitle}</li>
+        <li className='py-2 font-bold'>{channelTitle}</li>
         <li>{title}</li>
-        <li>{statistics.viewCount}</li>
+        <li>{statistics.viewCount} views</li>
       </ul>
 
     </div>
