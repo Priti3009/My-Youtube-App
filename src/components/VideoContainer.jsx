@@ -9,11 +9,25 @@ const VideoContainer = () => {
     getVideos();
   },[])
 
-  const getVideos=async()=>{
-    const data=await fetch(YOUTUBE_VIDEOS_API);
-    const json=await data.json();
-    setVideos(json.items) 
+  
+    const getVideos=async()=>{
+      try{
+      const data=await fetch(YOUTUBE_VIDEOS_API);
+      const json=await data.json();
+      if (!json.items) {
+        console.error("YouTube API returned no items:", json);
+        setVideos([]); // set to empty array so .map() doesn't crash
+        return;
+      }
+      setVideos(json.items) 
+    }
+  catch (err) {
+    console.error("Error fetching videos:", err);
+    setVideos([]);
+  }
+
   };
+ 
 
   return (
    
